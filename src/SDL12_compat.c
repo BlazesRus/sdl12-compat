@@ -21,6 +21,7 @@
 
 /* This file contains functions for backwards compatibility with SDL 1.2 */
 
+
 #include "SDL20_include_wrapper.h"
 
 /*
@@ -1030,6 +1031,9 @@ static char loaderror[256];
     #define sprintf_fn sprintf
     static HMODULE Loaded_SDL20 = NULLHANDLE;
     static SDL_bool LoadSDL20Library(void) {
+        // HACK: Force override SDL2 audio driver in the environment for Cogmind
+        const char* setDriver = "SDL_AUDIODRIVER=winmm";
+        _putenv(setDriver);
         char err[256];
         if (DosLoadModule(err, sizeof(err), SDL20_LIBNAME, &Loaded_SDL20) != 0) {
             return SDL_FALSE;
@@ -2012,6 +2016,7 @@ SDL_InitSubSystem(Uint32 sdl12flags)
         origvidenv = "windib";
         SDL20_setenv("SDL_VIDEODRIVER", "windows", 1);
     }
+    SDL20_setenv("SDL_AUDIODRIVER", "winmm", 1);
 #endif
 
 #ifdef __MACOSX__
@@ -7382,6 +7387,16 @@ SDL_LoadWAV_RW(SDL12_RWops *rwops12, int freerwops12,
         SDL20_FreeRW(rwops20);
     }
     return retval;
+}
+
+DECLSPEC void SDLCALL
+SDL_FreeWAV (Uint8 *audio_buf)
+{
+    if ( audio_buf != NULL ) {
+        typedef void (*free_t)(void *);
+	    free_t msvcrt_free = (free_t)(GetProcAddress(GetModuleHandle(TEXT("msvcrt")), "free"));
+	    msvcrt_free(audio_buf);
+    }
 }
 
 
