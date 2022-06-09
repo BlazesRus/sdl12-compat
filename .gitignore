@@ -8,3 +8,13 @@ VSProject/Release/
 VSProject/Debug/
 
 VSProject/x64/
+
+VSProject/.vs/sdl12_compat/v16/
+
+VSProject2022/
+
+*.log
+
+
+
+VSProject/CMakeFiles/c927fafd5728945b460610656e105c97/

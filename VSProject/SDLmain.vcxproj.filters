@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\UserFiles\Github\sdl12-compat\src\SDLmain\win32\SDL_win32_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\UserFiles\Github\sdl12-compat\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E8578AEC-1182-37B6-8F7E-FDD25DF6372F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
